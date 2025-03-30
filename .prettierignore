@@ -1,0 +1,33 @@
+# Build outputs
+dist/
+build/
+
+# Node modules
+node_modules/
+
+# Coverage reports
+coverage/
+
+# Various data files
+*.min.js
+*.min.css
+*.svg
+*.ico
+*.json
+*.lock
+*.csv
+
+# Public directory assets
+public/
+
+# Vite cache
+.vite/
+
+# Generated files
+*.generated.*
+
+# Markdown files (if you want to keep their original formatting)
+*.md
+
+# Environment files
+.env*
