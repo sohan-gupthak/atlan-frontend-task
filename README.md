@@ -2,6 +2,16 @@
 
 A DataGrip-like web-based application capable of running SQL queries and displaying the results, created for the Atlan Frontend Internship Task 2025. The application provides a modern, user-friendly interface for data analysts to work with SQL queries efficiently.
 
+<h2>🚀 Demo</h2>
+
+<h2>Project Screenshots:</h2>
+
+<img width="1508" alt="Screenshot 2025-03-30 at 1 57 56 PM" src="https://github.com/user-attachments/assets/e6f42be3-5955-4577-bfe6-918ac12799fb" />
+
+<img width="1512" alt="Screenshot 2025-03-30 at 2 00 25 PM" src="https://github.com/user-attachments/assets/e7fa8597-4fdc-4205-bf6a-ed77ac73ef63" />
+
+
+
 ## Features
 
 - **SQL Query Editor**: A powerful code editor with syntax highlighting and auto-completion for writing SQL queries
@@ -39,7 +49,7 @@ A DataGrip-like web-based application capable of running SQL queries and display
 
 1. Clone the repository
    ```bash
-   git clone https://github.com/yourusername/atlan-frontend-task.git
+   git clone https://github.com/sohan-gupthak/atlan-frontend-task.git
    cd atlan-frontend-task
    ```
 
@@ -157,7 +167,8 @@ The application works with the following database schema:
 - **Data Visualization**: Integrated charts and graphs for query results
 - **Keyboard Shortcuts**: Comprehensive keyboard shortcuts for power users
 
-## License
+<h2>💖Like my work?</h2>
 
-MIT
+Follow me in LinkedIn.<p>https://www.linkedin.com/in/sohan-guptha/</p>
+
 
