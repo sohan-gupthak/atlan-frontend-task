@@ -3,6 +3,7 @@
 A DataGrip-like web-based application capable of running SQL queries and displaying the results, created for the Atlan Frontend Internship Task 2025. The application provides a modern, user-friendly interface for data analysts to work with SQL queries efficiently.
 
 <h2>🚀 Demo</h2>
+https://sohanatlan.netlify.app/
 
 <h2>Project Screenshots:</h2>
 
