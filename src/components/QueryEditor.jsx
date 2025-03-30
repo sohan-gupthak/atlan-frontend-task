@@ -110,58 +110,60 @@ const QueryEditor = ({ query, onQueryChange, onExecute }) => {
 
   return (
     <Card className="query-editor-card mb-3">
-      <Card.Header className="d-flex justify-content-between align-items-center">
-        <div className="d-flex align-items-center">
-          <div>SQL Query Editor</div>
-          {savedQueries.length > 0 && (
+      <Card.Header>
+        <div className="d-flex flex-column flex-md-row justify-content-between align-items-md-center">
+          <div className="d-flex align-items-center mb-2 mb-md-0">
+            <div>SQL Query Editor</div>
+            {savedQueries.length > 0 && (
+              <Button 
+                variant="link" 
+                size="sm"
+                className="ms-2 text-decoration-none"
+                onClick={() => setShowSaveModal(true)}
+              >
+                ({savedQueries.length} saved queries)
+              </Button>
+            )}
+          </div>
+          <div className="d-flex flex-wrap">
             <Button 
-              variant="link" 
-              size="sm"
-              className="ms-2 text-decoration-none"
-              onClick={() => setShowSaveModal(true)}
+              variant="outline-secondary" 
+              size="sm" 
+              className="me-2 mb-2 mb-sm-0"
+              title="Format Query"
+              onClick={formatQuery}
             >
-              ({savedQueries.length} saved queries)
+              <FaIndent />
             </Button>
-          )}
-        </div>
-        <div>
-          <Button 
-            variant="outline-secondary" 
-            size="sm" 
-            className="me-2"
-            title="Format Query"
-            onClick={formatQuery}
-          >
-            <FaIndent />
-          </Button>
-          <Button 
-            variant="outline-secondary" 
-            size="sm" 
-            className="me-2"
-            title="Save Query"
-            onClick={() => setShowSaveModal(true)}
-            disabled={!query.trim()}
-          >
-            <FaSave />
-          </Button>
-          <Button 
-            variant="outline-secondary" 
-            size="sm" 
-            className="me-2"
-            title="Download Query as SQL File"
-            onClick={handleDownloadQuery}
-            disabled={!query.trim()}
-          >
-            <FaDownload />
-          </Button>
-          <Button 
-            variant="primary" 
-            size="sm"
-            onClick={handleExecute}
-            title="Execute Query (Ctrl+Enter)"
-          >
-            <FaPlay className="me-1" /> Execute
-          </Button>
+            <Button 
+              variant="outline-secondary" 
+              size="sm" 
+              className="me-2 mb-2 mb-sm-0"
+              title="Save Query"
+              onClick={() => setShowSaveModal(true)}
+              disabled={!query.trim()}
+            >
+              <FaSave />
+            </Button>
+            <Button 
+              variant="outline-secondary" 
+              size="sm" 
+              className="me-2 mb-2 mb-sm-0"
+              title="Download Query as SQL File"
+              onClick={handleDownloadQuery}
+              disabled={!query.trim()}
+            >
+              <FaDownload />
+            </Button>
+            <Button 
+              variant="primary" 
+              size="sm"
+              onClick={handleExecute}
+              title="Execute Query (Ctrl+Enter)"
+            >
+              <FaPlay className="me-1" /> Execute
+            </Button>
+          </div>
         </div>
       </Card.Header>
       <Card.Body className="p-0">
@@ -174,7 +176,9 @@ const QueryEditor = ({ query, onQueryChange, onExecute }) => {
           onChange={onQueryChange}
           fontSize={14}
           width="100%"
-          height="200px"
+          height="150px"
+          maxLines={Infinity}
+          minLines={5}
           showPrintMargin={false}
           showGutter={true}
           highlightActiveLine={true}
