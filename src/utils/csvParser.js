@@ -627,6 +627,82 @@ export const parseCSVData = async (tableName, dataPath = '/') => {
 };
 
 export const loadMoreData = async (tableName, page = 1, pageSize = 1000, dataPath = '/') => {
+	if (tableName === 'amazon') {
+		try {
+			const response = await fetch(`${dataPath}train.csv`);
+			const reader = response.body.getReader();
+			const decoder = new TextDecoder('utf-8');
+			let { value: chunk, done: readerDone } = await reader.read();
+			let csvChunk = '';
+			let rows = [];
+			let rowIndex = 0;
+			const startIndex = (page - 1) * pageSize;
+			const endIndex = startIndex + pageSize;
+			let totalRows = 0;
+			let columns = ['rating', 'title', 'review'];
+			let pageData = [];
+			let headerSkipped = false;
+
+			while (!readerDone && pageData.length < pageSize) {
+				csvChunk += decoder.decode(chunk, { stream: true });
+				Papa.parse(csvChunk, {
+					delimiter: ',',
+					newline: '\n',
+					skipEmptyLines: true,
+					worker: false,
+					step: function(result, parser) {
+						const row = result.data;
+						// Skip header row if not already skipped (assume first row is header if it contains non-numeric rating)
+						if (!headerSkipped && (row[0] === 'rating' || isNaN(Number(row[0])))) {
+							headerSkipped = true;
+							return;
+						}
+						headerSkipped = true;
+						if (rowIndex >= startIndex && rowIndex < endIndex) {
+							pageData.push({
+								rating: row[0],
+								title: row[1],
+								review: row[2]
+							});
+						}
+						rowIndex++;
+						if (pageData.length >= pageSize) {
+							parser.abort();
+						}
+					},
+					complete: function() {
+						totalRows = rowIndex;
+					}
+				});
+				({ value: chunk, done: readerDone } = await reader.read());
+			}
+			if (!totalRows) totalRows = rowIndex;
+			const totalPages = Math.ceil(totalRows / pageSize) || 1;
+			return {
+				data: pageData,
+				columns,
+				errors: [],
+				pagination: {
+					page,
+					pageSize,
+					totalPages,
+					totalRows,
+				},
+			};
+		} catch (error) {
+			return {
+				data: [],
+				columns: [],
+				errors: [error.message],
+				pagination: {
+					page,
+					pageSize,
+					totalPages: 0,
+					totalRows: 0,
+				},
+			};
+		}
+	}
 	if (tableName !== 'reviews') {
 		const result = await parseCSVData(tableName, dataPath);
 		return result;

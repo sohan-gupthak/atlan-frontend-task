@@ -2,6 +2,7 @@ import React, { useMemo, useState } from 'react';
 import { Card, Table, Spinner, Badge, Pagination, Form, InputGroup, Button } from 'react-bootstrap';
 import { FaDownload, FaSearch, FaSortAmountDown, FaSortAmountUp } from 'react-icons/fa';
 import Papa from 'papaparse';
+import VirtualList from 'rc-virtual-list';
 
 const ResultsTable = ({ data, columns, isLoading, executionTime, pagination, onPageChange }) => {
 	const [currentPage, setCurrentPage] = useState(1);
@@ -193,15 +194,34 @@ const ResultsTable = ({ data, columns, isLoading, executionTime, pagination, onP
 							</tr>
 						</thead>
 						<tbody>
-							{paginatedData.map((row, rowIndex) => (
-								<tr key={rowIndex}>
-									{columns.map((column) => (
-										<td key={`${rowIndex}-${column}`}>
-											{row[column] !== null && row[column] !== undefined ? row[column] : 'NULL'}
-										</td>
-									))}
-								</tr>
-							))}
+							{(Array.isArray(paginatedData) && paginatedData.length > 500) ? (
+								<VirtualList
+									data={paginatedData}
+									height={500}
+									itemHeight={40}
+									itemKey={(row, idx) => idx}
+								>
+									{(row, rowIndex) => (
+										<tr key={rowIndex}>
+											{columns.map((column) => (
+												<td key={`${rowIndex}-${column}`}>
+													{row[column] !== null && row[column] !== undefined ? row[column] : 'NULL'}
+												</td>
+											))}
+										</tr>
+									)}
+								</VirtualList>
+							) : (
+								paginatedData.map((row, rowIndex) => (
+									<tr key={rowIndex}>
+										{columns.map((column) => (
+											<td key={`${rowIndex}-${column}`}>
+												{row[column] !== null && row[column] !== undefined ? row[column] : 'NULL'}
+											</td>
+										))}
+									</tr>
+								))
+							)}
 						</tbody>
 					</Table>
 				</div>

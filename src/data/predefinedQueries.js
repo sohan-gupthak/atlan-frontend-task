@@ -1,5 +1,10 @@
 export const predefinedQueries = [
   {
+    name: "All Amazon Reviews",
+    query: "SELECT * FROM amazon",
+    tableName: "amazon"
+  },
+  {
     name: "All Products",
     query: "SELECT * FROM products",
     tableName: "products"

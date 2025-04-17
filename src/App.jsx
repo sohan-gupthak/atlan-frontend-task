@@ -38,6 +38,7 @@ function App() {
 		'employees',
 		'order_details',
 		'employee_territories',
+		'amazon',
 		// 'reviews',
 	];
 
@@ -49,7 +50,7 @@ function App() {
 	const [currentPage, setCurrentPage] = useState(1);
 	const [totalPages, setTotalPages] = useState(1);
 	const [totalRows, setTotalRows] = useState(0);
-	const [pageSize, setPageSize] = useState(1000);
+	const [pageSize, setPageSize] = useState(40000);
 
 	const loadTableData = async (tableName, customQuery = null, skipTimeCalculation = false, page = 1) => {
 		setIsLoading(true);
@@ -57,7 +58,7 @@ function App() {
 			// Start measuring execution time (only if not skipping time calculation)
 			const startTime = skipTimeCalculation ? 0 : performance.now();
 
-			if (tableName === 'reviews') {
+			if (tableName === 'reviews' || tableName === 'amazon') {
 				const { data, columns: cols, pagination } = await loadMoreData(tableName, page, pageSize, './data/');
 				setTableData(data);
 				setColumns(cols);

@@ -4,7 +4,7 @@ import { FaTable, FaHistory, FaCode, FaBookmark, FaStar, FaDatabase, FaEye } fro
 import { generateCompleteDDL } from '../utils/ddlGenerator';
 import { toast } from 'react-toastify';
 
-const Sidebar = ({ activeTable, onTableSelect, queryHistory, predefinedQueries, savedQueries = [], onQuerySelect, tables = ['products', 'orders', 'suppliers', 'shippers', 'regions', 'territories'] }) => {
+const Sidebar = ({ activeTable, onTableSelect, queryHistory, predefinedQueries, savedQueries = [], onQuerySelect, tables = ['products', 'orders', 'suppliers', 'shippers', 'regions', 'territories', 'amazon'] }) => {
   const [showDDLModal, setShowDDLModal] = useState(false);
   const [selectedTableDDL, setSelectedTableDDL] = useState('');
   const [selectedTableName, setSelectedTableName] = useState('');
